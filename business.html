@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RupeeRates Business Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Outfit',sans-serif;background:#080C14;color:#E8E4DC;overflow-x:hidden}
+:root{
+  --bg:#080C14;--bg2:#0E1420;--bg3:#141C2E;--bg4:#1C2640;
+  --gold:#D4A843;--gold2:#F0C050;--gold-dim:rgba(212,168,67,0.15);--gold-border:rgba(212,168,67,0.25);
+  --cream:#E8E4DC;--cream2:#C8C0B0;--cream3:#887C6A;
+  --green:#1A7A52;--green2:#22A870;--green-pale:rgba(26,122,82,0.15);
+  --red:#8A2020;--red2:#C0392B;--red-pale:rgba(138,32,32,0.15);
+  --blue:#1A3A8F;--blue2:#2A5AB0;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --shadow:0 8px 40px rgba(0,0,0,0.4);--shadow-lg:0 24px 80px rgba(0,0,0,0.6);
+  --r:8px;--r2:14px;--r3:20px;
+  --ease:.22s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── VIEWS ── */
+.view{display:none;min-height:100vh}
+.view.active{display:flex}
+
+/* ── AUTH VIEWS ── */
+.auth-view{
+  display:flex;align-items:stretch;min-height:100vh;
+}
+.auth-left{
+  width:420px;flex-shrink:0;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  padding:60px 48px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.auth-left::before{
+  content:'';position:absolute;top:-100px;left:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,168,67,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.auth-left::after{
+  content:'';position:absolute;bottom:-80px;right:-80px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,122,82,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.auth-logo{
+  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;
+  color:var(--cream);letter-spacing:-.3px;margin-bottom:48px;
+}
+.auth-logo span{color:var(--gold)}
+.auth-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;line-height:1.15;font-weight:500;
+  color:var(--cream);margin-bottom:16px;
+}
+.auth-headline em{font-style:italic;color:var(--gold)}
+.auth-desc{font-size:14px;color:var(--cream3);line-height:1.7;font-weight:300;margin-bottom:40px}
+.auth-features{display:flex;flex-direction:column;gap:14px}
+.af-item{display:flex;align-items:flex-start;gap:12px}
+.af-icon{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;margin-top:1px;
+}
+.af-text{font-size:13px;color:var(--cream2);line-height:1.55;font-weight:300}
+.af-text strong{color:var(--cream);font-weight:500}
+.auth-footer-note{font-size:11px;color:var(--cream3);margin-top:auto;padding-top:32px;border-top:1px solid var(--border);line-height:1.6}
+
+/* ── AUTH FORM PANEL ── */
+.auth-right{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:40px 24px;background:var(--bg);
+}
+.auth-form-wrap{width:100%;max-width:420px}
+.af-title{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.af-heading{
+  font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;
+  color:var(--cream);margin-bottom:32px;
+}
+.form-group{margin-bottom:18px}
+.form-label{
+  display:block;font-size:11px;font-weight:600;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--cream3);margin-bottom:7px;
+}
+.form-input,.form-select{
+  width:100%;padding:13px 16px;
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--r);font-family:'Outfit',sans-serif;font-size:14px;
+  color:var(--cream);outline:none;
+  transition:border-color var(--ease),box-shadow var(--ease);
+}
+.form-input:focus,.form-select:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(212,168,67,0.1);
+}
+.form-input::placeholder{color:var(--cream3)}
+.form-select{appearance:none;cursor:pointer;color:var(--cream2)}
+.form-select option{background:var(--bg2);color:var(--cream)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-hint{font-size:11px;color:var(--cream3);margin-top:5px}
+.password-wrap{position:relative}
+.password-wrap .form-input{padding-right:44px}
+.pw-toggle{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--cream3);cursor:pointer;
+  font-size:14px;padding:2px;transition:color var(--ease);
+}
+.pw-toggle:hover{color:var(--cream)}
+.form-divider{display:flex;align-items:center;gap:12px;margin:20px 0}
+.form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.form-divider span{font-size:11px;color:var(--cream3)}
+.btn-primary{
+  width:100%;padding:14px;background:var(--gold);color:#080C14;
+  border:none;border-radius:var(--r);font-family:'Outfit',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.3px;
+  transition:all var(--ease);margin-top:8px;
+}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 20px rgba(212,168,67,0.3)}
+.btn-primary:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none}
+.btn-secondary{
+  width:100%;padding:13px;background:transparent;color:var(--cream2);
+  border:1px solid var(--border2);border-radius:var(--r);
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;
+  transition:all var(--ease);
+}
+.btn-secondary:hover{border-color:var(--cream3);color:var(--cream)}
+.switch-link{
+  text-align:center;margin-top:20px;font-size:13px;color:var(--cream3);
+}
+.switch-link a{color:var(--gold);cursor:pointer;text-decoration:none;transition:color var(--ease)}
+.switch-link a:hover{color:var(--gold2)}
+.error-msg{
+  background:var(--red-pale);border:1px solid rgba(192,57,43,0.3);
+  border-radius:var(--r);padding:11px 14px;font-size:13px;color:#E07070;
+  margin-bottom:16px;display:none;
+}
+.error-msg.show{display:block}
+.success-msg{
+  background:var(--green-pale);border:1px solid rgba(34,168,112,0.3);
+  border-radius:var(--r);padding:11px 14px;font-size:13px;color:var(--green2);
+  margin-bottom:16px;display:none;
+}
+.success-msg.show{display:block}
+.strength-bar{height:3px;border-radius:2px;background:var(--border);margin-top:6px;overflow:hidden}
+.strength-fill{height:100%;border-radius:2px;transition:all .3s ease;width:0}
+
+/* ── DASHBOARD ── */
+.dashboard{display:flex;min-height:100vh;background:var(--bg)}
+.sidebar{
+  width:240px;flex-shrink:0;background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;padding:28px 0;
+  position:fixed;top:0;left:0;bottom:0;z-index:10;
+}
+.sb-logo{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;
+  color:var(--cream);padding:0 24px;margin-bottom:32px;
+}
+.sb-logo span{color:var(--gold)}
+.sb-section{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream3);padding:0 24px;margin-bottom:8px;margin-top:16px}
+.sb-link{
+  display:flex;align-items:center;gap:10px;padding:10px 24px;
+  font-size:13px;font-weight:500;color:var(--cream3);
+  cursor:pointer;transition:all var(--ease);border:none;background:none;
+  width:100%;text-align:left;
+}
+.sb-link:hover{color:var(--cream);background:rgba(255,255,255,0.04)}
+.sb-link.active{color:var(--gold);background:var(--gold-dim);border-right:2px solid var(--gold)}
+.sb-link-icon{font-size:15px;width:18px;text-align:center}
+.sb-bottom{margin-top:auto;padding:16px 24px;border-top:1px solid var(--border)}
+.sb-user{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sb-avatar{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--gold-dim);border:1px solid var(--gold-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;color:var(--gold);flex-shrink:0;
+}
+.sb-user-info{}
+.sb-user-name{font-size:13px;font-weight:500;color:var(--cream);line-height:1.2}
+.sb-user-role{font-size:11px;color:var(--cream3)}
+.logout-btn{
+  display:flex;align-items:center;gap:8px;font-size:12px;color:var(--cream3);
+  background:none;border:none;cursor:pointer;padding:0;transition:color var(--ease);
+}
+.logout-btn:hover{color:var(--red2)}
+
+/* ── MAIN CONTENT ── */
+.main{margin-left:240px;flex:1;padding:36px 40px;min-height:100vh}
+.page-header{margin-bottom:32px}
+.page-eyebrow{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:500;color:var(--cream)}
+.page-sub{font-size:14px;color:var(--cream3);margin-top:6px;font-weight:300}
+
+/* ── DASHBOARD PANELS ── */
+.dash-panel{display:none}
+.dash-panel.active{display:block}
+
+/* stat cards */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.stat-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px 22px;
+}
+.sc-label{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--cream3);margin-bottom:8px}
+.sc-val{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--cream)}
+.sc-val.gold{color:var(--gold)}
+.sc-val.green{color:var(--green2)}
+.sc-sub{font-size:11px;color:var(--cream3);margin-top:4px}
+
+/* rate entry card */
+.rate-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;margin-bottom:20px;
+}
+.rc-header{
+  padding:18px 24px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.rc-title{font-size:15px;font-weight:500;color:var(--cream)}
+.rc-meta{font-size:12px;color:var(--cream3)}
+.rc-body{padding:24px}
+.rate-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.rate-field{}
+.rf-label{
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--cream3);margin-bottom:6px;display:flex;align-items:center;gap:5px;
+}
+.rf-flag{font-size:14px}
+.rate-input{
+  width:100%;padding:12px 14px;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:var(--r);font-family:'JetBrains Mono',monospace;
+  font-size:17px;font-weight:500;color:var(--cream);outline:none;
+  transition:all var(--ease);
+}
+.rate-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,168,67,0.08);background:var(--bg4)}
+.rate-input:not(:placeholder-shown){border-color:rgba(34,168,112,0.4);background:rgba(26,122,82,0.05)}
+.rate-input::placeholder{color:rgba(255,255,255,0.15)}
+.mid-ref{font-size:10px;color:var(--cream3);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.mid-ref.good{color:var(--green2)}
+.mid-ref.warn{color:var(--gold)}
+.save-row{
+  display:flex;align-items:center;gap:14px;
+  padding-top:16px;border-top:1px solid var(--border);
+}
+.save-btn{
+  background:var(--gold);color:#080C14;border:none;border-radius:var(--r);
+  padding:11px 28px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all var(--ease);display:flex;align-items:center;gap:8px;
+}
+.save-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.save-status{font-size:13px;color:var(--cream3)}
+.save-status.ok{color:var(--green2);font-weight:500}
+.last-updated{margin-left:auto;font-size:12px;color:var(--cream3);display:flex;align-items:center;gap:6px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green2)}
+
+/* live preview */
+.preview-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);
+  padding:20px 24px;margin-bottom:20px;
+}
+.preview-title{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--cream3);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.preview-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.preview-row:last-child{border-bottom:none}
+.pr-pair{font-size:13px;color:var(--cream2);display:flex;align-items:center;gap:8px}
+.pr-rate{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;color:var(--cream)}
+.pr-rate.empty{color:rgba(255,255,255,0.15);font-size:14px}
+
+/* history table */
+.history-table{width:100%;border-collapse:collapse}
+.ht-head{background:var(--bg3)}
+.ht-th{padding:12px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--cream3);border-bottom:1px solid var(--border)}
+.ht-td{padding:12px 16px;font-size:13px;color:var(--cream2);border-bottom:1px solid var(--border)}
+.ht-td:last-child{text-align:right}
+.ht-td.mono{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--cream)}
+.status-live{display:inline-flex;align-items:center;gap:5px;background:var(--green-pale);color:var(--green2);border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700}
+.status-old{color:var(--cream3);font-size:11px}
+
+/* profile */
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.profile-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:24px}
+.pc-title{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+
+/* notification toast */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:1000;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:var(--r2);padding:14px 20px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:var(--shadow-lg);
+  transform:translateY(80px);opacity:0;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  min-width:280px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-icon{font-size:18px;flex-shrink:0}
+.toast-text{font-size:13px;color:var(--cream)}
+.toast-text strong{color:var(--cream);display:block;font-weight:600;margin-bottom:2px}
+.toast-text span{color:var(--cream3);font-size:12px}
+
+/* pending badge */
+.pending-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(212,168,67,0.15);border:1px solid rgba(212,168,67,0.3);
+  color:var(--gold);border-radius:4px;padding:3px 9px;font-size:11px;font-weight:600;
+}
+.approved-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--green-pale);border:1px solid rgba(34,168,112,0.3);
+  color:var(--green2);border-radius:4px;padding:3px 9px;font-size:11px;font-weight:600;
+}
+
+/* mobile */
+@media(max-width:900px){
+  .auth-left{display:none}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .rate-grid{grid-template-columns:1fr 1fr}
+  .sidebar{width:200px}
+  .main{margin-left:200px;padding:24px}
+  .profile-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .stat-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ LOGIN VIEW ════════════════════ -->
+<div class="view active" id="view-login">
+  <div class="auth-view" style="width:100%">
+    <div class="auth-left">
+      <div>
+        <div class="auth-logo">Rupee<span>Rates</span> <span style="font-size:14px;font-weight:300;color:var(--cream3)">Business</span></div>
+        <div class="auth-headline">Manage your<br><em>exchange rates.</em><br>Reach more customers.</div>
+        <p class="auth-desc">The RupeeRates Business Portal lets licensed exchange houses publish their live rates directly to thousands of Indian customers comparing rates every day.</p>
+        <div class="auth-features">
+          <div class="af-item"><div class="af-icon">📊</div><div class="af-text"><strong>Publish rates instantly</strong> — update your AED, SAR, USD and GBP rates and they go live on the comparison page immediately.</div></div>
+          <div class="af-item"><div class="af-icon">👥</div><div class="af-text"><strong>Pre-qualified customers</strong> — every visitor has already chosen your rate over competitors. They arrive ready to transact.</div></div>
+          <div class="af-item"><div class="af-icon">📈</div><div class="af-text"><strong>Track your performance</strong> — see how many customers clicked through to your listing and compare your rates to the market.</div></div>
+        </div>
+      </div>
+      <div class="auth-footer-note">RupeeRates only lists RBI-licensed FFMCs and Central Bank of UAE licensed exchange houses. All accounts are verified before going live.</div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-form-wrap">
+        <div class="af-title">Business Portal</div>
+        <div class="af-heading">Sign in to your account</div>
+        <div class="error-msg" id="loginError"></div>
+        <div class="form-group">
+          <label class="form-label">Business Email</label>
+          <input class="form-input" type="email" id="loginEmail" placeholder="you@yourbusiness.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="password-wrap">
+            <input class="form-input" type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+            <button class="pw-toggle" onclick="togglePw('loginPassword',this)" type="button">👁</button>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="doLogin()" id="loginBtn">Sign In →</button>
+        <div class="switch-link" style="margin-top:16px">
+          Don't have an account? <a onclick="showView('register')">Create one free</a>
+        </div>
+        <div class="form-divider"><span>or try demo</span></div>
+        <button class="btn-secondary" onclick="doDemo()">Sign in as Demo Business</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ REGISTER VIEW ════════════════════ -->
+<div class="view" id="view-register">
+  <div class="auth-view" style="width:100%">
+    <div class="auth-left">
+      <div>
+        <div class="auth-logo">Rupee<span>Rates</span> <span style="font-size:14px;font-weight:300;color:var(--cream3)">Business</span></div>
+        <div class="auth-headline">Join the<br><em>network.</em><br>Grow your volume.</div>
+        <p class="auth-desc">Create your business account in 2 minutes. Your rates go live as soon as your FFMC licence is verified — usually within 24 hours.</p>
+        <div class="auth-features">
+          <div class="af-item"><div class="af-icon">✅</div><div class="af-text"><strong>Free to join</strong> — basic listing is completely free. We earn a small referral fee only on completed transactions.</div></div>
+          <div class="af-item"><div class="af-icon">🔒</div><div class="af-text"><strong>Secure &amp; private</strong> — your account data is encrypted. Only your published rates and business name are shown to customers.</div></div>
+          <div class="af-item"><div class="af-icon">⚡</div><div class="af-text"><strong>Live in 24 hours</strong> — submit your licence details, we verify, and your rates are live on the comparison page.</div></div>
+        </div>
+      </div>
+      <div class="auth-footer-note">By creating an account you agree that your business holds a valid FFMC licence or equivalent Central Bank authorisation. Accounts without valid licences will be removed.</div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-form-wrap">
+        <div class="af-title">Create Account</div>
+        <div class="af-heading">Register your business</div>
+        <div class="error-msg" id="regError"></div>
+        <div class="success-msg" id="regSuccess"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="form-input" type="text" id="regFirst" placeholder="Kris" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="form-input" type="text" id="regLast" placeholder="Kumar" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Business Name</label>
+          <input class="form-input" type="text" id="regBusiness" placeholder="e.g. Al Ansari Exchange">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Business Email</label>
+          <input class="form-input" type="email" id="regEmail" placeholder="you@yourbusiness.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Licence Type</label>
+          <select class="form-select" id="regLicence">
+            <option value="">Select licence type...</option>
+            <option value="ffmc">India FFMC — Full Fledged Money Changer (RBI)</option>
+            <option value="ad">India AD — Authorised Dealer (RBI)</option>
+            <option value="uae_cbuae">UAE — Central Bank of UAE Licensed</option>
+            <option value="other">Other regulated licence</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Licence Number</label>
+          <input class="form-input" type="text" id="regLicenceNum" placeholder="e.g. FFMC/MUM/2847">
+          <div class="form-hint">This will be verified and displayed on your listing to build customer trust.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="password-wrap">
+            <input class="form-input" type="password" id="regPassword" placeholder="Min. 8 characters" oninput="checkStrength(this)">
+            <button class="pw-toggle" onclick="togglePw('regPassword',this)" type="button">👁</button>
+          </div>
+          <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+          <div class="form-hint" id="strengthHint">Use 8+ characters with numbers and symbols</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="password-wrap">
+            <input class="form-input" type="password" id="regConfirm" placeholder="Repeat password">
+            <button class="pw-toggle" onclick="togglePw('regConfirm',this)" type="button">👁</button>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="doRegister()" id="regBtn">Create Account →</button>
+        <div class="switch-link">Already have an account? <a onclick="showView('login')">Sign in</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ DASHBOARD VIEW ════════════════════ -->
+<div class="view" id="view-dashboard">
+  <div class="dashboard" style="width:100%">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sb-logo">Rupee<span>Rates</span></div>
+
+      <div class="sb-section">Rates</div>
+      <button class="sb-link active" onclick="showPanel('rates',this)"><span class="sb-link-icon">📊</span>Update Rates</button>
+      <button class="sb-link" onclick="showPanel('history',this)"><span class="sb-link-icon">🕐</span>Rate History</button>
+
+      <div class="sb-section">Business</div>
+      <button class="sb-link" onclick="showPanel('overview',this)"><span class="sb-link-icon">📈</span>Overview</button>
+      <button class="sb-link" onclick="showPanel('profile',this)"><span class="sb-link-icon">🏢</span>Business Profile</button>
+
+      <div class="sb-bottom">
+        <div class="sb-user">
+          <div class="sb-avatar" id="sidebarAvatar">?</div>
+          <div class="sb-user-info">
+            <div class="sb-user-name" id="sidebarName">—</div>
+            <div class="sb-user-role" id="sidebarStatus">Pending verification</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">↩ Sign out</button>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- ── RATES PANEL ── -->
+      <div class="dash-panel active" id="panel-rates">
+        <div class="page-header">
+          <div class="page-eyebrow">Rate Management</div>
+          <div class="page-title">Update Your Rates</div>
+          <div class="page-sub">Enter your rates below. They publish to the comparison page the moment you save.</div>
+        </div>
+
+        <div class="rate-card">
+          <div class="rc-header">
+            <div class="rc-title" id="rateCardTitle">Today's Rates</div>
+            <div class="rc-meta" id="rateCardMeta">Enter rates for each currency pair you support</div>
+          </div>
+          <div class="rc-body">
+            <div class="rate-grid">
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇦🇪</span>AED → INR</div>
+                <input class="rate-input" type="number" id="rAED" placeholder="e.g. 25.45" step="0.01" oninput="updatePreview();checkRate('rAED',25.62)">
+                <div class="mid-ref" id="midAED">Mid-market: ₹25.62</div>
+              </div>
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇸🇦</span>SAR → INR</div>
+                <input class="rate-input" type="number" id="rSAR" placeholder="e.g. 22.05" step="0.01" oninput="updatePreview();checkRate('rSAR',22.21)">
+                <div class="mid-ref" id="midSAR">Mid-market: ₹22.21</div>
+              </div>
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇺🇸</span>USD → INR</div>
+                <input class="rate-input" type="number" id="rUSD" placeholder="e.g. 83.10" step="0.01" oninput="updatePreview();checkRate('rUSD',83.42)">
+                <div class="mid-ref" id="midUSD">Mid-market: ₹83.42</div>
+              </div>
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇬🇧</span>GBP → INR</div>
+                <input class="rate-input" type="number" id="rGBP" placeholder="e.g. 104.20" step="0.01" oninput="updatePreview();checkRate('rGBP',104.80)">
+                <div class="mid-ref" id="midGBP">Mid-market: ₹104.80</div>
+              </div>
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇪🇺</span>EUR → INR</div>
+                <input class="rate-input" type="number" id="rEUR" placeholder="e.g. 89.30" step="0.01" oninput="updatePreview();checkRate('rEUR',89.56)">
+                <div class="mid-ref" id="midEUR">Mid-market: ₹89.56</div>
+              </div>
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇶🇦</span>QAR → INR</div>
+                <input class="rate-input" type="number" id="rQAR" placeholder="e.g. 22.70" step="0.01" oninput="updatePreview();checkRate('rQAR',22.88)">
+                <div class="mid-ref" id="midQAR">Mid-market: ₹22.88</div>
+              </div>
+              <div class="rate-field">
+                <div class="rf-label"><span class="rf-flag">🇰🇼</span>KWD → INR</div>
+                <input class="rate-input" type="number" id="rKWD" placeholder="e.g. 269.00" step="0.01" oninput="updatePreview();checkRate('rKWD',271.40)">
+                <div class="mid-ref" id="midKWD">Mid-market: ₹271.40</div>
+              </div>
+            </div>
+            <div class="save-row">
+              <button class="save-btn" onclick="saveRates()" id="saveBtn">💾 Publish Rates</button>
+              <span class="save-status" id="saveStatus">Rates go live the moment you publish.</span>
+              <div class="last-updated" id="lastUpdated" style="display:none">
+                <span class="live-dot"></span><span id="lastUpdatedText">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-card">
+          <div class="preview-title">
+            <span>👁</span> Live Preview — how your listing appears to customers
+          </div>
+          <div id="previewRows">
+            <div class="preview-row"><span class="pr-pair">🇦🇪 AED → INR</span><span class="pr-rate empty" id="prev-AED">not entered</span></div>
+            <div class="preview-row"><span class="pr-pair">🇸🇦 SAR → INR</span><span class="pr-rate empty" id="prev-SAR">not entered</span></div>
+            <div class="preview-row"><span class="pr-pair">🇺🇸 USD → INR</span><span class="pr-rate empty" id="prev-USD">not entered</span></div>
+            <div class="preview-row"><span class="pr-pair">🇬🇧 GBP → INR</span><span class="pr-rate empty" id="prev-GBP">not entered</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HISTORY PANEL ── -->
+      <div class="dash-panel" id="panel-history">
+        <div class="page-header">
+          <div class="page-eyebrow">Rate History</div>
+          <div class="page-title">Your Rate Updates</div>
+          <div class="page-sub">A log of every time you published rates.</div>
+        </div>
+        <div class="rate-card">
+          <table class="history-table">
+            <thead class="ht-head">
+              <tr>
+                <th class="ht-th">Date & Time</th>
+                <th class="ht-th">AED/INR</th>
+                <th class="ht-th">SAR/INR</th>
+                <th class="ht-th">USD/INR</th>
+                <th class="ht-th">GBP/INR</th>
+                <th class="ht-th">Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody">
+              <tr><td class="ht-td" colspan="6" style="color:var(--cream3);text-align:center;padding:32px">No rate updates yet. Publish your first rates above.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── OVERVIEW PANEL ── -->
+      <div class="dash-panel" id="panel-overview">
+        <div class="page-header">
+          <div class="page-eyebrow">Performance</div>
+          <div class="page-title">Business Overview</div>
+          <div class="page-sub">How your listing is performing on RupeeRates.</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card"><div class="sc-label">Listing Views</div><div class="sc-val gold">—</div><div class="sc-sub">Goes live after verification</div></div>
+          <div class="stat-card"><div class="sc-label">Click-throughs</div><div class="sc-val gold">—</div><div class="sc-sub">Customers sent to your site</div></div>
+          <div class="stat-card"><div class="sc-label">This Month</div><div class="sc-val gold">—</div><div class="sc-sub">Referral revenue</div></div>
+          <div class="stat-card"><div class="sc-label">Account Status</div><div class="sc-val" id="overviewStatus" style="font-size:14px">—</div><div class="sc-sub" id="overviewStatusSub">—</div></div>
+        </div>
+        <div class="rate-card">
+          <div class="rc-header"><div class="rc-title">Getting started checklist</div></div>
+          <div class="rc-body">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:50%;background:var(--green-pale);border:1px solid var(--green2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--green2);flex-shrink:0">✓</div><div style="font-size:14px;color:var(--cream2)">Create your business account</div></div>
+              <div style="display:flex;align-items:center;gap:12px" id="check-rates"><div style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--cream3);flex-shrink:0">2</div><div style="font-size:14px;color:var(--cream3)">Publish your first rates</div></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--cream3);flex-shrink:0">3</div><div style="font-size:14px;color:var(--cream3)">Licence verified by RupeeRates team (within 24h)</div></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px;border-radius:50%;background:var(--border);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--cream3);flex-shrink:0">4</div><div style="font-size:14px;color:var(--cream3)">Your listing goes live — customers start finding you</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PROFILE PANEL ── */
+      <div class="dash-panel" id="panel-profile">
+        <div class="page-header">
+          <div class="page-eyebrow">Account</div>
+          <div class="page-title">Business Profile</div>
+          <div class="page-sub">This information is shown on your public listing.</div>
+        </div>
+        <div class="profile-grid">
+          <div class="profile-card">
+            <div class="pc-title">Business Details</div>
+            <div class="form-group"><label class="form-label">Business Name</label><input class="form-input" id="profBusiness" placeholder="Business name"></div>
+            <div class="form-group"><label class="form-label">Website URL</label><input class="form-input" id="profUrl" placeholder="https://yoursite.com" type="url"></div>
+            <div class="form-group"><label class="form-label">City / Location</label>
+            <select class="form-select" id="profCity">
+              <option value="">Select your city...</option>
+              <optgroup label="🇦🇪 UAE">
+                <option value="Dubai, UAE">Dubai</option>
+                <option value="Abu Dhabi, UAE">Abu Dhabi</option>
+                <option value="Sharjah, UAE">Sharjah</option>
+                <option value="Ajman, UAE">Ajman</option>
+                <option value="Ras Al Khaimah, UAE">Ras Al Khaimah</option>
+              </optgroup>
+              <optgroup label="🇸🇦 Saudi Arabia">
+                <option value="Riyadh, Saudi Arabia">Riyadh</option>
+                <option value="Jeddah, Saudi Arabia">Jeddah</option>
+                <option value="Dammam, Saudi Arabia">Dammam</option>
+                <option value="Mecca, Saudi Arabia">Mecca</option>
+                <option value="Medina, Saudi Arabia">Medina</option>
+              </optgroup>
+              <optgroup label="🇰🇼 Kuwait">
+                <option value="Kuwait City, Kuwait">Kuwait City</option>
+                <option value="Salmiya, Kuwait">Salmiya</option>
+                <option value="Hawalli, Kuwait">Hawalli</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option value="Online">🌐 Online only</option>
+              </optgroup>
+            </select></div>
+            <div class="form-group"><label class="form-label">Business Type</label>
+              <select class="form-select" id="profType">
+                <option value="physical">📍 Physical Branch</option>
+                <option value="online">🌐 Online / Delivery</option>
+                <option value="both">📍+🌐 Both</option>
+              </select>
+            </div>
+            <button class="save-btn" onclick="saveProfile()" style="width:auto;padding:10px 24px">Save Profile</button>
+          </div>
+          <div class="profile-card">
+            <div class="pc-title">Licence Information</div>
+            <div class="form-group"><label class="form-label">Licence Type</label><input class="form-input" id="profLicType" readonly style="opacity:.6"></div>
+            <div class="form-group"><label class="form-label">Licence Number</label><input class="form-input" id="profLicNum" readonly style="opacity:.6"></div>
+            <div style="background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:var(--r);padding:12px 14px;font-size:12px;color:var(--gold);line-height:1.6">To update licence details, contact hello@rupeerates.in with your new licence document.</div>
+            <div class="form-group" style="margin-top:16px"><label class="form-label">Account Email</label><input class="form-input" id="profEmail" readonly style="opacity:.6"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /dashboard -->
+</div><!-- /view-dashboard -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <div class="toast-text"><strong id="toastTitle">—</strong><span id="toastSub">—</span></div>
+</div>
+
+<script>
+// ── SECURITY UTILITIES ──────────────────────────────────────────────────────
+// Passwords are hashed with a simple PBKDF2-like approach using SubtleCrypto
+// In production replace with a real backend (Supabase, Firebase Auth, etc.)
+
+async function hashPassword(password, salt) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name:'PBKDF2', salt:enc.encode(salt), iterations:100000, hash:'SHA-256' },
+    keyMaterial, 256
+  );
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function generateSalt() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function generateToken() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(32))).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── STORAGE HELPERS ─────────────────────────────────────────────────────────
+// Uses localStorage. In production: replace with Supabase or Firebase.
+function getAccounts() { try { return JSON.parse(localStorage.getItem('rr_accounts') || '{}'); } catch(e) { return {}; } }
+function saveAccounts(a) { localStorage.setItem('rr_accounts', JSON.stringify(a)); }
+function getSession() { try { return JSON.parse(sessionStorage.getItem('rr_session') || 'null'); } catch(e) { return null; } }
+function setSession(s) { sessionStorage.setItem('rr_session', JSON.stringify(s)); }
+function clearSession() { sessionStorage.removeItem('rr_session'); }
+function sanitize(str) { return String(str || '').replace(/[<>"'&]/g, c => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','&':'&amp;'}[c])); }
+
+// ── VIEW ROUTING ─────────────────────────────────────────────────────────────
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── PASSWORD TOGGLE ──────────────────────────────────────────────────────────
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+// ── PASSWORD STRENGTH ────────────────────────────────────────────────────────
+function checkStrength(inp) {
+  const v = inp.value;
+  let score = 0;
+  if (v.length >= 8)  score++;
+  if (v.length >= 12) score++;
+  if (/[0-9]/.test(v)) score++;
+  if (/[^a-zA-Z0-9]/.test(v)) score++;
+  if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+  const fill = document.getElementById('strengthFill');
+  const hint = document.getElementById('strengthHint');
+  const pct = (score / 5) * 100;
+  fill.style.width = pct + '%';
+  const colors = ['#C0392B','#E67E22','#F0C050','#2ECC71','#27AE60'];
+  const labels = ['Too short','Weak','Fair','Strong','Very strong'];
+  fill.style.background = colors[Math.max(0, score-1)] || colors[0];
+  hint.textContent = labels[Math.max(0, score-1)] || labels[0];
+  hint.style.color = colors[Math.max(0, score-1)] || colors[0];
+}
+
+// ── REGISTER ─────────────────────────────────────────────────────────────────
+async function doRegister() {
+  const errEl = document.getElementById('regError');
+  const sucEl = document.getElementById('regSuccess');
+  errEl.classList.remove('show');
+  sucEl.classList.remove('show');
+
+  const first    = document.getElementById('regFirst').value.trim();
+  const last     = document.getElementById('regLast').value.trim();
+  const business = document.getElementById('regBusiness').value.trim();
+  const email    = document.getElementById('regEmail').value.trim().toLowerCase();
+  const licence  = document.getElementById('regLicence').value;
+  const licNum   = document.getElementById('regLicenceNum').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const confirm  = document.getElementById('regConfirm').value;
+
+  // Validation
+  if (!first || !last) return showError('regError','Please enter your full name.');
+  if (!business)       return showError('regError','Please enter your business name.');
+  if (!email || !email.includes('@')) return showError('regError','Please enter a valid business email.');
+  if (!licence)        return showError('regError','Please select your licence type.');
+  if (!licNum)         return showError('regError','Please enter your licence number.');
+  if (password.length < 8) return showError('regError','Password must be at least 8 characters.');
+  if (password !== confirm) return showError('regError','Passwords do not match.');
+
+  const accounts = getAccounts();
+  if (accounts[email]) return showError('regError','An account with this email already exists.');
+
+  const btn = document.getElementById('regBtn');
+  btn.disabled = true;
+  btn.textContent = 'Creating account...';
+
+  try {
+    const salt = generateSalt();
+    const hash = await hashPassword(password, salt);
+    accounts[email] = {
+      email, first, last, business, licence, licNum, salt, hash,
+      createdAt: new Date().toISOString(),
+      status: 'pending',
+      rates: {},
+      rateHistory: [],
+      profile: { url:'', city:'', type:'physical' },
+    };
+    saveAccounts(accounts);
+    sucEl.textContent = '✓ Account created! Signing you in...';
+    sucEl.classList.add('show');
+    // Auto login
+    setTimeout(() => doLoginWith(email, accounts[email]), 1200);
+  } catch(e) {
+    showError('regError','Something went wrong. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Create Account →';
+  }
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+async function doLogin() {
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('show');
+  const email    = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const password = document.getElementById('loginPassword').value;
+  if (!email || !password) return showError('loginError','Please enter your email and password.');
+
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+
+  const accounts = getAccounts();
+  const account  = accounts[email];
+  if (!account) {
+    showError('loginError','No account found with this email.');
+    btn.disabled = false; btn.textContent = 'Sign In →';
+    return;
+  }
+
+  try {
+    const hash = await hashPassword(password, account.salt);
+    if (hash !== account.hash) {
+      showError('loginError','Incorrect password. Please try again.');
+      btn.disabled = false; btn.textContent = 'Sign In →';
+      return;
+    }
+    doLoginWith(email, account);
+  } catch(e) {
+    showError('loginError','Something went wrong. Please try again.');
+    btn.disabled = false; btn.textContent = 'Sign In →';
+  }
+}
+
+function doLoginWith(email, account) {
+  const token = generateToken();
+  setSession({ email, token, loginAt: new Date().toISOString() });
+  loadDashboard(account);
+  showView('dashboard');
+  showToast('✅','Welcome back!', account.business || account.first);
+  document.getElementById('loginBtn').disabled = false;
+  document.getElementById('loginBtn').textContent = 'Sign In →';
+}
+
+function doDemo() {
+  const demo = {
+    email:'demo@rupeerates.in', first:'Demo', last:'Business',
+    business:'Demo Exchange House', licence:'ffmc', licNum:'FFMC/DEMO/0001',
+    status:'approved', createdAt: new Date().toISOString(),
+    rates:{ AED:25.45, SAR:22.08, USD:83.15, GBP:104.30 },
+    rateHistory:[
+      { at: new Date(Date.now()-86400000).toISOString(), rates:{ AED:25.38, SAR:22.02, USD:83.05, GBP:104.10 } },
+      { at: new Date(Date.now()-172800000).toISOString(), rates:{ AED:25.42, SAR:22.05, USD:83.10, GBP:104.20 } },
+    ],
+    profile:{ url:'https://demo.rupeerates.in', city:'Dubai, UAE', type:'both' },
+    salt:'demo', hash:'demo',
+  };
+  doLoginWith('demo@rupeerates.in', demo);
+}
+
+// ── LOGOUT ────────────────────────────────────────────────────────────────────
+function doLogout() {
+  clearSession();
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  showView('login');
+}
+
+// ── DASHBOARD LOAD ────────────────────────────────────────────────────────────
+function loadDashboard(account) {
+  // Sidebar
+  const initials = ((account.first||'?')[0] + (account.last||'?')[0]).toUpperCase();
+  document.getElementById('sidebarAvatar').textContent = initials;
+  document.getElementById('sidebarName').textContent = account.business || account.first;
+  document.getElementById('sidebarStatus').textContent =
+    account.status === 'approved' ? '✓ Live on comparison page' : 'Pending verification';
+
+  // Rate card title
+  document.getElementById('rateCardTitle').textContent = account.business + ' — Today\'s Rates';
+
+  // Load existing rates into inputs
+  const r = account.rates || {};
+  ['AED','SAR','USD','GBP','EUR','QAR','KWD'].forEach(c => {
+    const el = document.getElementById('r'+c);
+    if (el && r[c]) el.value = r[c];
+  });
+
+  // Rate history
+  renderHistory(account.rateHistory || []);
+
+  // Overview
+  const statusEl = document.getElementById('overviewStatus');
+  const statusSub = document.getElementById('overviewStatusSub');
+  if (account.status === 'approved') {
+    statusEl.innerHTML = '<span class="approved-badge">✓ Approved</span>';
+    statusSub.textContent = 'Your listing is live';
+  } else {
+    statusEl.innerHTML = '<span class="pending-badge">⏳ Pending</span>';
+    statusSub.textContent = 'Licence verification in progress';
+  }
+
+  // Profile
+  document.getElementById('profBusiness').value = account.business || '';
+  document.getElementById('profUrl').value = account.profile?.url || '';
+  document.getElementById('profCity').value = account.profile?.city || '';
+  document.getElementById('profType').value = account.profile?.type || 'physical';
+  document.getElementById('profLicType').value = account.licence || '';
+  document.getElementById('profLicNum').value = account.licNum || '';
+  document.getElementById('profEmail').value = account.email || '';
+
+  // Last updated
+  if (account.rateHistory?.length) {
+    const last = new Date(account.rateHistory[account.rateHistory.length-1].at);
+    document.getElementById('lastUpdatedText').textContent = 'Last published ' + last.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('lastUpdated').style.display = 'flex';
+  }
+
+  updatePreview();
+  showPanel('rates', document.querySelector('.sb-link'));
+}
+
+// ── PANELS ────────────────────────────────────────────────────────────────────
+function showPanel(id, btn) {
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+// ── SAVE RATES ────────────────────────────────────────────────────────────────
+function saveRates() {
+  const session = getSession();
+  if (!session) return;
+
+  const rates = {};
+  ['AED','SAR','USD','GBP','EUR','QAR','KWD'].forEach(c => {
+    const v = parseFloat(document.getElementById('r'+c)?.value);
+    if (v && v > 0) rates[c] = v;
+  });
+
+  if (Object.keys(rates).length === 0) {
+    showToast('⚠️','No rates entered','Please enter at least one rate before publishing.');
+    return;
+  }
+
+  const accounts = getAccounts();
+  const email = session.email;
+  if (accounts[email]) {
+    accounts[email].rates = rates;
+    if (!accounts[email].rateHistory) accounts[email].rateHistory = [];
+    accounts[email].rateHistory.unshift({ at: new Date().toISOString(), rates: { ...rates } });
+    if (accounts[email].rateHistory.length > 30) accounts[email].rateHistory = accounts[email].rateHistory.slice(0,30);
+    saveAccounts(accounts);
+  }
+
+  // Update UI
+  const now = new Date();
+  document.getElementById('lastUpdatedText').textContent = 'Published at ' + now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('lastUpdated').style.display = 'flex';
+  document.getElementById('saveStatus').textContent = '✓ Rates published';
+  document.getElementById('saveStatus').className = 'save-status ok';
+  setTimeout(() => {
+    document.getElementById('saveStatus').textContent = 'Rates go live the moment you publish.';
+    document.getElementById('saveStatus').className = 'save-status';
+  }, 3000);
+
+  renderHistory(accounts[email]?.rateHistory || []);
+  showToast('✅','Rates published!','Your rates are now live on the comparison page.');
+
+  // Check rates checklist
+  const check = document.getElementById('check-rates');
+  if (check) {
+    check.querySelector('div').style.background = 'var(--green-pale)';
+    check.querySelector('div').style.borderColor = 'var(--green2)';
+    check.querySelector('div').style.color = 'var(--green2)';
+    check.querySelector('div').textContent = '✓';
+    check.querySelector('div + div').style.color = 'var(--cream2)';
+  }
+}
+
+// ── RATE PREVIEW ──────────────────────────────────────────────────────────────
+function updatePreview() {
+  ['AED','SAR','USD','GBP'].forEach(c => {
+    const v = parseFloat(document.getElementById('r'+c)?.value);
+    const el = document.getElementById('prev-' + c);
+    if (el) {
+      if (v && v > 0) {
+        el.textContent = '₹' + v.toFixed(2);
+        el.className = 'pr-rate';
+      } else {
+        el.textContent = 'not entered';
+        el.className = 'pr-rate empty';
+      }
+    }
+  });
+}
+
+// ── RATE VALIDATION ───────────────────────────────────────────────────────────
+const MID = { AED:25.62, SAR:22.21, USD:83.42, GBP:104.80, EUR:89.56, QAR:22.88, KWD:271.40 };
+function checkRate(id, mid) {
+  const v = parseFloat(document.getElementById(id)?.value);
+  const curr = id.replace('r','');
+  const ref = document.getElementById('mid'+curr);
+  if (!ref || !v) return;
+  const diff = ((v - mid) / mid) * 100;
+  if (Math.abs(diff) > 5) {
+    ref.textContent = `⚠ ${diff>0?'+':''}${diff.toFixed(1)}% vs mid-market — double check`;
+    ref.className = 'mid-ref warn';
+  } else {
+    ref.textContent = `Mid-market: ₹${mid.toFixed(2)} · ${diff>0?'+':''}${diff.toFixed(2)}%`;
+    ref.className = diff < -2 ? 'mid-ref' : 'mid-ref good';
+  }
+}
+
+// ── RATE HISTORY ──────────────────────────────────────────────────────────────
+function renderHistory(history) {
+  const tbody = document.getElementById('historyBody');
+  if (!history.length) {
+    tbody.innerHTML = '<tr><td class="ht-td" colspan="6" style="color:var(--cream3);text-align:center;padding:32px">No rate updates yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = history.map((h, i) => {
+    const d = new Date(h.at);
+    const isLatest = i === 0;
+    return `<tr>
+      <td class="ht-td">${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</td>
+      <td class="ht-td mono">${h.rates.AED ? '₹'+h.rates.AED.toFixed(2) : '—'}</td>
+      <td class="ht-td mono">${h.rates.SAR ? '₹'+h.rates.SAR.toFixed(2) : '—'}</td>
+      <td class="ht-td mono">${h.rates.USD ? '₹'+h.rates.USD.toFixed(2) : '—'}</td>
+      <td class="ht-td mono">${h.rates.GBP ? '₹'+h.rates.GBP.toFixed(2) : '—'}</td>
+      <td class="ht-td">${isLatest ? '<span class="status-live"><span style="width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block"></span> Live</span>' : '<span class="status-old">Archived</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── SAVE PROFILE ──────────────────────────────────────────────────────────────
+function saveProfile() {
+  const session = getSession();
+  if (!session) return;
+  const accounts = getAccounts();
+  const email = session.email;
+  if (accounts[email]) {
+    accounts[email].business = document.getElementById('profBusiness').value.trim();
+    accounts[email].profile = {
+      url:  document.getElementById('profUrl').value.trim(),
+      city: document.getElementById('profCity').value.trim(),
+      type: document.getElementById('profType').value,
+    };
+    saveAccounts(accounts);
+    document.getElementById('sidebarName').textContent = accounts[email].business;
+  }
+  showToast('✅','Profile saved','Your business details have been updated.');
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(icon, title, sub) {
+  clearTimeout(toastTimer);
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastSub').textContent = sub;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── ERROR HELPER ──────────────────────────────────────────────────────────────
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+(function init() {
+  const session = getSession();
+  if (session) {
+    const accounts = getAccounts();
+    const account  = accounts[session.email];
+    if (account) {
+      loadDashboard(account);
+      showView('dashboard');
+      return;
+    }
+  }
+  showView('login');
+})();
+</script>
+</body>
+</html>
