@@ -20,19 +20,14 @@ jobs:
           node-version: '20'
 
       - name: Install Puppeteer
-        run: |
-          npm install puppeteer@22
+        run: npm install puppeteer@latest
         env:
-          PUPPETEER_CACHE_DIR: ~/.cache/puppeteer
-
-      - name: Cache Puppeteer browser
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/puppeteer
-          key: puppeteer-chrome-${{ runner.os }}-v22
+          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
 
       - name: Run scraper
         run: node scraper.js
+        env:
+          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
         timeout-minutes: 10
 
       - name: Commit updated rates
