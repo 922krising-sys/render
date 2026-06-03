@@ -1,5 +1,104 @@
 {
-  "scrapedAt": null,
-  "midRates": {},
-  "providers": {}
+  "scrapedAt": "2026-06-03T04:20:40.888Z",
+  "midRates": {
+    "AED": 25.974,
+    "SAR": 25.4453,
+    "USD": 95.2381,
+    "GBP": 128.2051,
+    "EUR": 110.742,
+    "QAR": 26.178,
+    "KWD": 308.642,
+    "BHD": 253.8071,
+    "OMR": 248.139
+  },
+  "providers": {
+    "al_ansari": {
+      "name": "Al Ansari Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "AA",
+      "url": "https://alansariexchange.com/service/foreign-exchange/",
+      "AED": null,
+      "SAR": null,
+      "USD": null,
+      "GBP": null,
+      "EUR": null,
+      "source": "browser"
+    },
+    "lulu": {
+      "name": "LuLu Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "LE",
+      "url": "https://luluexchange.com/currency-converter/",
+      "error": "Navigation timeout of 30000 ms exceeded",
+      "source": "failed"
+    },
+    "al_fardan": {
+      "name": "Al Fardan Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "AF",
+      "url": "https://alfardanexchange.com/todays-exchange-rates",
+      "AED": null,
+      "SAR": null,
+      "USD": null,
+      "GBP": null,
+      "EUR": null,
+      "source": "browser"
+    },
+    "gcc": {
+      "name": "GCC Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "GC",
+      "url": "https://www.gccexchange.com/uae-currency-exchange-rates",
+      "AED": 25.89,
+      "SAR": null,
+      "USD": null,
+      "GBP": null,
+      "EUR": null,
+      "source": "browser"
+    },
+    "wallstreet": {
+      "name": "Wall Street Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "WS",
+      "url": "https://www.wallstreet.ae/personal/foreign-exchange",
+      "AED": null,
+      "SAR": null,
+      "USD": null,
+      "GBP": null,
+      "EUR": null,
+      "source": "browser"
+    },
+    "kieco": {
+      "name": "KIECO",
+      "city": "Kuwait City",
+      "country": "Kuwait",
+      "logo": "KI",
+      "url": "https://kiecokw.com/",
+      "KWD": null,
+      "source": "browser"
+    },
+    "bec": {
+      "name": "BEC Exchange",
+      "city": "Kuwait City",
+      "country": "Kuwait",
+      "logo": "BE",
+      "url": "https://www.bec.com.kw/",
+      "KWD": null,
+      "source": "browser"
+    },
+    "tahweel": {
+      "name": "Tahweel Al Rajhi",
+      "city": "Riyadh",
+      "country": "Saudi",
+      "logo": "TR",
+      "url": "https://www.tahweelalrajhi.com.sa/product-and-service/best-exchange-rate",
+      "SAR": null,
+      "source": "browser"
+    }
+  }
 }
