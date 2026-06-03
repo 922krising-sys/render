@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-03T04:20:40.888Z",
+  "scrapedAt": "2026-06-03T05:08:46.554Z",
   "midRates": {
     "AED": 25.974,
     "SAR": 25.4453,
@@ -18,12 +18,9 @@
       "country": "UAE",
       "logo": "AA",
       "url": "https://alansariexchange.com/service/foreign-exchange/",
-      "AED": null,
-      "SAR": null,
-      "USD": null,
-      "GBP": null,
-      "EUR": null,
-      "source": "browser"
+      "AED": 25.84,
+      "SAR": 25.84,
+      "source": "masarif.ae"
     },
     "lulu": {
       "name": "LuLu Exchange",
@@ -31,8 +28,9 @@
       "country": "UAE",
       "logo": "LE",
       "url": "https://luluexchange.com/currency-converter/",
-      "error": "Navigation timeout of 30000 ms exceeded",
-      "source": "failed"
+      "AED": 25.79,
+      "SAR": 25.79,
+      "source": "masarif.ae"
     },
     "al_fardan": {
       "name": "Al Fardan Exchange",
@@ -40,25 +38,8 @@
       "country": "UAE",
       "logo": "AF",
       "url": "https://alfardanexchange.com/todays-exchange-rates",
-      "AED": null,
-      "SAR": null,
-      "USD": null,
-      "GBP": null,
-      "EUR": null,
-      "source": "browser"
-    },
-    "gcc": {
-      "name": "GCC Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "GC",
-      "url": "https://www.gccexchange.com/uae-currency-exchange-rates",
-      "AED": 25.89,
-      "SAR": null,
-      "USD": null,
-      "GBP": null,
-      "EUR": null,
-      "source": "browser"
+      "AED": 33.33,
+      "source": "masarif.ae"
     },
     "wallstreet": {
       "name": "Wall Street Exchange",
@@ -66,39 +47,35 @@
       "country": "UAE",
       "logo": "WS",
       "url": "https://www.wallstreet.ae/personal/foreign-exchange",
-      "AED": null,
-      "SAR": null,
-      "USD": null,
-      "GBP": null,
-      "EUR": null,
-      "source": "browser"
+      "AED": 24.85,
+      "source": "masarif.ae"
     },
-    "kieco": {
-      "name": "KIECO",
-      "city": "Kuwait City",
-      "country": "Kuwait",
-      "logo": "KI",
-      "url": "https://kiecokw.com/",
-      "KWD": null,
-      "source": "browser"
+    "orient": {
+      "name": "Orient Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "OE",
+      "url": "https://orientexchange.ae/",
+      "AED": 25.85,
+      "source": "masarif.ae"
     },
-    "bec": {
-      "name": "BEC Exchange",
-      "city": "Kuwait City",
-      "country": "Kuwait",
-      "logo": "BE",
-      "url": "https://www.bec.com.kw/",
-      "KWD": null,
-      "source": "browser"
+    "unimoni": {
+      "name": "Unimoni Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "UN",
+      "url": "https://unimoni.ae/",
+      "AED": 22.49,
+      "source": "masarif.ae"
     },
-    "tahweel": {
-      "name": "Tahweel Al Rajhi",
-      "city": "Riyadh",
-      "country": "Saudi",
-      "logo": "TR",
-      "url": "https://www.tahweelalrajhi.com.sa/product-and-service/best-exchange-rate",
-      "SAR": null,
-      "source": "browser"
+    "joyalukkas": {
+      "name": "Joyalukkas Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "JE",
+      "url": "https://joyalukkasexchange.com/",
+      "AED": 25.83,
+      "source": "masarif.ae"
     }
   }
 }
