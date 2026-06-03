@@ -8,7 +8,7 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repo
@@ -19,17 +19,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Puppeteer
-        run: npm install puppeteer@latest
-        env:
-          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
-
       - name: Run scraper
         run: node scraper.js
-        timeout-minutes: 14
-        continue-on-error: true
-        env:
-          PUPPETEER_CACHE_DIR: /home/runner/.cache/puppeteer
 
       - name: Commit updated rates
         run: |
