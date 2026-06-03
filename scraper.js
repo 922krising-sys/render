@@ -1,9 +1,14 @@
 // ─────────────────────────────────────────────────────────────────
-// RupeeRates — Daily Scraper v3
+// RupeeRates — Daily Scraper v4
 //
 // Strategy: scrape masarif.ae which aggregates rates from all major
-// UAE exchange houses in plain HTML — no Puppeteer needed for these.
-// Falls back to GCC Exchange direct scrape (already working).
+// UAE exchange houses in plain HTML — no Puppeteer needed.
+//
+// Key fix from v3: masarif table columns are:
+//   | Buy Rate | Sell Rate | Transfer Rate | Updated At |
+// v3 was grabbing Buy Rate (e.g. 33.33 for cash) instead of
+// Transfer Rate (e.g. 25.00 for remittance). v4 parses the first
+// data row's 3rd <td> directly.
 //
 // Runs via GitHub Actions daily at 6am UAE time.
 // Writes results to rates.json.
@@ -42,44 +47,52 @@ function fetch(targetUrl, timeoutMs = 15000) {
   });
 }
 
-// ── Extract a rate number from HTML near a pattern ────────────────
-function pluck(text, pattern, min, max) {
-  const clean = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-  const regexes = [
-    new RegExp(pattern + '[^\\d]{0,60}([\\d]{1,3}\\.[\\d]{2,4})', 'i'),
-    new RegExp('([\\d]{1,3}\\.[\\d]{2,4})[^\\d]{0,60}' + pattern, 'i'),
-  ];
-  for (const r of regexes) {
-    const m = clean.match(r);
-    if (m) {
-      const v = parseFloat(m[1]);
-      if (v >= min && v <= max) return v;
-    }
+// ── Parse masarif.ae table: get Transfer Rate from first data row ─
+// Table: | Buy Rate | Sell Rate | Transfer Rate | Updated At |
+// We want column index 2 (0-based) = Transfer Rate
+function parseTransferRate(html, min, max) {
+  // Find the <tbody> section
+  const tbodyMatch = html.match(/<tbody[\s\S]*?<\/tbody>/i);
+  if (!tbodyMatch) return null;
+  
+  // Get the first <tr> in tbody (most recent entry)
+  const firstRow = tbodyMatch[0].match(/<tr[\s\S]*?<\/tr>/i);
+  if (!firstRow) return null;
+  
+  // Extract all <td> values
+  const tds = [];
+  const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+  let m;
+  while ((m = tdRe.exec(firstRow[0])) !== null) {
+    // Strip any HTML tags inside the td and trim
+    const text = m[1].replace(/<[^>]+>/g, '').trim();
+    tds.push(text);
   }
+  
+  // Column 2 (index 2) = Transfer Rate
+  if (tds.length >= 3) {
+    const v = parseFloat(tds[2]);
+    if (!isNaN(v) && v >= min && v <= max) return v;
+  }
+  
+  // Fallback: try column 0 (Buy Rate) only if within remittance range
+  // (some providers don't have Transfer Rate)
+  if (tds.length >= 1) {
+    const v = parseFloat(tds[0]);
+    if (!isNaN(v) && v >= min && v <= max) return v;
+  }
+  
   return null;
 }
 
 // ── Scrape masarif.ae for a specific exchange + currency ──────────
-// Returns the Transfer Rate (best rate customer gets for remittance)
 async function masarifRate(exchangeSlug, currencySlug, min, max) {
   const pageUrl = `https://masarif.ae/currency-exchanges/${exchangeSlug}/currency-exchange-rates/${currencySlug}`;
   try {
     const html = await fetch(pageUrl);
-    // Table format: | Buy Rate | Sell Rate | Transfer Rate | Updated At |
-    // We want Transfer Rate (first row = most recent)
-    const tableMatch = html.match(/Transfer Rate[\s\S]{0,200}?(\d{2,3}\.\d{2,4})/i);
-    if (tableMatch) {
-      const v = parseFloat(tableMatch[1]);
-      if (v >= min && v <= max) return v;
-    }
-    // Fallback: try Buy Rate
-    const buyMatch = html.match(/Buy Rate[\s\S]{0,200}?(\d{2,3}\.\d{2,4})/i);
-    if (buyMatch) {
-      const v = parseFloat(buyMatch[1]);
-      if (v >= min && v <= max) return v;
-    }
-    return null;
+    return parseTransferRate(html, min, max);
   } catch(e) {
+    console.warn(`    fetch error: ${e.message}`);
     return null;
   }
 }
@@ -101,68 +114,96 @@ async function fetchMidRates() {
   }
 }
 
-// ── GCC Exchange direct (already proven to work) ──────────────────
+// ── GCC Exchange direct (proven to work) ─────────────────────────
+function pluck(text, pattern, min, max) {
+  const clean = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  const regexes = [
+    new RegExp(pattern + '[^\\d]{0,60}([\\d]{1,3}\\.[\\d]{2,4})', 'i'),
+    new RegExp('([\\d]{1,3}\\.[\\d]{2,4})[^\\d]{0,60}' + pattern, 'i'),
+  ];
+  for (const r of regexes) {
+    const m = clean.match(r);
+    if (m) {
+      const v = parseFloat(m[1]);
+      if (v >= min && v <= max) return v;
+    }
+  }
+  return null;
+}
+
 async function scrapeGCCDirect() {
   try {
     const html = await fetch('https://www.gccexchange.com/uae-currency-exchange-rates');
     const aed  = pluck(html, 'INR', 20, 35);
-    return { AED: aed, source: 'direct' };
-  } catch(e) { return { error: e.message }; }
+    return { AED: aed };
+  } catch(e) { return {}; }
+}
+
+// ── Validate a scraped rate makes sense ───────────────────────────
+// Cross-check against mid-market: reject if more than 3% away
+// (catches bogus numbers like 22.49 when real rate is ~25.9)
+function validate(rate, midRate, tolerancePct = 3) {
+  if (!rate || !midRate) return rate;
+  const pctDiff = Math.abs(rate - midRate) / midRate * 100;
+  if (pctDiff > tolerancePct) {
+    console.warn(`    ⚠ rate ${rate} is ${pctDiff.toFixed(1)}% from mid-market ${midRate} — rejected`);
+    return null;
+  }
+  return rate;
 }
 
 // ── Provider definitions ──────────────────────────────────────────
-// masarif slug → what currencies to fetch
 const MASARIF_PROVIDERS = [
   {
     id: 'al_ansari', name: 'Al Ansari Exchange', city: 'Dubai', country: 'UAE', logo: 'AA',
     url: 'https://alansariexchange.com/service/foreign-exchange/',
     slug: 'al-ansari-exchange',
-    currencies: { AED: { slug:'inr', min:20, max:35 }, SAR: { slug:'inr', min:18, max:30 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
   {
     id: 'lulu', name: 'LuLu Exchange', city: 'Dubai', country: 'UAE', logo: 'LE',
     url: 'https://luluexchange.com/currency-converter/',
     slug: 'lulu-international-exchange',
-    currencies: { AED: { slug:'inr', min:20, max:35 }, SAR: { slug:'inr', min:18, max:30 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
   {
     id: 'al_fardan', name: 'Al Fardan Exchange', city: 'Dubai', country: 'UAE', logo: 'AF',
     url: 'https://alfardanexchange.com/todays-exchange-rates',
     slug: 'al-fardan-exchange',
-    currencies: { AED: { slug:'inr', min:20, max:35 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
   {
     id: 'wallstreet', name: 'Wall Street Exchange', city: 'Dubai', country: 'UAE', logo: 'WS',
     url: 'https://www.wallstreet.ae/personal/foreign-exchange',
     slug: 'wall-street-exchange',
-    currencies: { AED: { slug:'inr', min:20, max:35 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
   {
     id: 'orient', name: 'Orient Exchange', city: 'Dubai', country: 'UAE', logo: 'OE',
     url: 'https://orientexchange.ae/',
     slug: 'orient-exchange-co-l-l-c',
-    currencies: { AED: { slug:'inr', min:20, max:35 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
   {
     id: 'unimoni', name: 'Unimoni Exchange', city: 'Dubai', country: 'UAE', logo: 'UN',
     url: 'https://unimoni.ae/',
     slug: 'unimoni-uae',
-    currencies: { AED: { slug:'inr', min:20, max:35 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
   {
     id: 'joyalukkas', name: 'Joyalukkas Exchange', city: 'Dubai', country: 'UAE', logo: 'JE',
     url: 'https://joyalukkasexchange.com/',
     slug: 'joyalukkas-exchange',
-    currencies: { AED: { slug:'inr', min:20, max:35 } }
+    currencies: { AED: { slug:'inr', min:22, max:28 } }
   },
 ];
 
 // ── Main ──────────────────────────────────────────────────────────
 (async () => {
-  console.log('RupeeRates scraper v3 starting —', new Date().toISOString());
-  console.log('Strategy: masarif.ae aggregator (no browser needed)\n');
+  console.log('RupeeRates scraper v4 —', new Date().toISOString());
+  console.log('Fix: reads Transfer Rate column (col 2) not Buy Rate (col 0)\n');
 
-  // 1. Mid-market rates
+  // 1. Mid-market rates (used for validation)
   console.log('Fetching mid-market rates...');
   const midRates = await fetchMidRates();
   if (midRates) {
@@ -176,28 +217,34 @@ const MASARIF_PROVIDERS = [
   for (const p of MASARIF_PROVIDERS) {
     const rates = {};
     for (const [currency, cfg] of Object.entries(p.currencies)) {
-      rates[currency] = await masarifRate(p.slug, cfg.slug, cfg.min, cfg.max);
-      // Small delay to be polite
-      await new Promise(r => setTimeout(r, 500));
+      const raw = await masarifRate(p.slug, cfg.slug, cfg.min, cfg.max);
+      // Validate against mid-market (reject if >3% off)
+      rates[currency] = validate(raw, midRates && midRates[currency]);
+      await new Promise(r => setTimeout(r, 600));
     }
-    providers[p.id] = {
-      name: p.name, city: p.city, country: p.country,
-      logo: p.logo, url: p.url, ...rates, source: 'masarif.ae',
-    };
+    
+    const hasRates = Object.values(rates).some(v => v !== null);
+    if (hasRates) {
+      providers[p.id] = {
+        name: p.name, city: p.city, country: p.country,
+        logo: p.logo, url: p.url, ...rates, source: 'masarif.ae',
+      };
+    }
     const vals = Object.entries(rates).filter(([,v])=>v).map(([k,v])=>`${k}=${v}`);
-    console.log(`  [${p.name}] ${vals.length ? vals.join('  ') : '✗ no rates found'}`);
+    console.log(`  [${p.name}] ${vals.length ? vals.join('  ') : '✗ no valid rates'}`);
   }
 
-  // 3. GCC Exchange direct (as backup / cross-check)
+  // 3. GCC Exchange direct (cross-check)
   console.log('\nScraping GCC Exchange direct...');
   const gcc = await scrapeGCCDirect();
-  if (gcc.AED) {
+  const gccAED = validate(gcc.AED, midRates && midRates.AED);
+  if (gccAED) {
     providers['gcc'] = {
       name: 'GCC Exchange', city: 'Dubai', country: 'UAE', logo: 'GC',
       url: 'https://www.gccexchange.com/uae-currency-exchange-rates',
-      AED: gcc.AED, source: 'direct',
+      AED: gccAED, source: 'direct',
     };
-    console.log(`  [GCC Exchange] AED=${gcc.AED}`);
+    console.log(`  [GCC Exchange] AED=${gccAED}`);
   }
 
   // 4. Write output
@@ -209,5 +256,6 @@ const MASARIF_PROVIDERS = [
 
   fs.writeFileSync('rates.json', JSON.stringify(output, null, 2));
   console.log('\n✓ rates.json written —', new Date().toISOString());
-  console.log('  Providers with rates:', Object.values(providers).filter(p => p.AED || p.SAR || p.KWD).length);
+  const withRates = Object.values(providers).filter(p => p.AED || p.SAR || p.KWD).length;
+  console.log(`  Providers with valid rates: ${withRates} / ${Object.keys(providers).length}`);
 })();
