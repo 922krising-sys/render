@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-03T06:51:58.280Z",
+  "scrapedAt": "2026-06-03T18:24:50.401Z",
   "midRates": {
     "AED": 25.974,
     "SAR": 25.4453,
@@ -28,8 +28,8 @@
       "country": "UAE",
       "logo": "LE",
       "url": "https://luluexchange.com/currency-converter/",
-      "AED": 25.79,
-      "SAR": 25.79,
+      "AED": 25.96,
+      "SAR": 25.96,
       "source": "masarif.ae"
     },
     "al_fardan": {
@@ -56,7 +56,7 @@
       "country": "UAE",
       "logo": "OE",
       "url": "https://orientexchange.ae/",
-      "AED": 25.87,
+      "AED": 25.95,
       "source": "masarif.ae"
     },
     "unimoni": {
@@ -74,7 +74,7 @@
       "country": "UAE",
       "logo": "JE",
       "url": "https://joyalukkasexchange.com/",
-      "AED": 25.92,
+      "AED": 25.94,
       "source": "masarif.ae"
     }
   }
