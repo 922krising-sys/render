@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-03T05:08:46.554Z",
+  "scrapedAt": "2026-06-03T06:51:58.280Z",
   "midRates": {
     "AED": 25.974,
     "SAR": 25.4453,
@@ -56,7 +56,7 @@
       "country": "UAE",
       "logo": "OE",
       "url": "https://orientexchange.ae/",
-      "AED": 25.85,
+      "AED": 25.87,
       "source": "masarif.ae"
     },
     "unimoni": {
@@ -74,7 +74,7 @@
       "country": "UAE",
       "logo": "JE",
       "url": "https://joyalukkasexchange.com/",
-      "AED": 25.83,
+      "AED": 25.92,
       "source": "masarif.ae"
     }
   }
