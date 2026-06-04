@@ -1,5 +1,5 @@
 {
-  "scrapedAt": "2026-06-04T00:03:41.646Z",
+  "scrapedAt": "2026-06-04T00:09:17.901Z",
   "midRates": {
     "AED": 26.1097,
     "SAR": 25.5754,
@@ -12,6 +12,195 @@
     "OMR": 249.3766
   },
   "providers": {
+    "al_ansari_dubai": {
+      "name": "Al Ansari Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "AA",
+      "url": "https://alansariexchange.com/service/foreign-exchange/",
+      "AED": 26.03,
+      "source": "margin-estimate"
+    },
+    "al_ansari_abudhabi": {
+      "name": "Al Ansari Exchange",
+      "city": "Abu Dhabi",
+      "country": "UAE",
+      "logo": "AA",
+      "url": "https://alansariexchange.com/service/foreign-exchange/",
+      "AED": 26.03,
+      "source": "margin-estimate"
+    },
+    "al_ansari_sharjah": {
+      "name": "Al Ansari Exchange",
+      "city": "Sharjah",
+      "country": "UAE",
+      "logo": "AA",
+      "url": "https://alansariexchange.com/service/foreign-exchange/",
+      "AED": 26.03,
+      "source": "margin-estimate"
+    },
+    "lulu_dubai": {
+      "name": "LuLu Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "LE",
+      "url": "https://luluexchange.com/currency-converter/",
+      "AED": 26.06,
+      "source": "margin-estimate"
+    },
+    "lulu_abudhabi": {
+      "name": "LuLu Exchange",
+      "city": "Abu Dhabi",
+      "country": "UAE",
+      "logo": "LE",
+      "url": "https://luluexchange.com/currency-converter/",
+      "AED": 26.06,
+      "source": "margin-estimate"
+    },
+    "lulu_sharjah": {
+      "name": "LuLu Exchange",
+      "city": "Sharjah",
+      "country": "UAE",
+      "logo": "LE",
+      "url": "https://luluexchange.com/currency-converter/",
+      "AED": 26.06,
+      "source": "margin-estimate"
+    },
+    "al_fardan_dubai": {
+      "name": "Al Fardan Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "AF",
+      "url": "https://alfardanexchange.com/todays-exchange-rates",
+      "AED": 25.95,
+      "source": "margin-estimate"
+    },
+    "al_fardan_abudhabi": {
+      "name": "Al Fardan Exchange",
+      "city": "Abu Dhabi",
+      "country": "UAE",
+      "logo": "AF",
+      "url": "https://alfardanexchange.com/todays-exchange-rates",
+      "AED": 25.95,
+      "source": "margin-estimate"
+    },
+    "wallstreet": {
+      "name": "Wall Street Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "WS",
+      "url": "https://www.wallstreet.ae/personal/foreign-exchange",
+      "AED": 25.9,
+      "source": "margin-estimate"
+    },
+    "orient": {
+      "name": "Orient Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "OE",
+      "url": "https://orientexchange.ae/",
+      "AED": 25.98,
+      "source": "margin-estimate"
+    },
+    "unimoni": {
+      "name": "Unimoni Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "UN",
+      "url": "https://unimoni.ae/",
+      "AED": 25.85,
+      "source": "margin-estimate"
+    },
+    "joyalukkas": {
+      "name": "Joyalukkas Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "JE",
+      "url": "https://joyalukkasexchange.com/",
+      "AED": 26.06,
+      "source": "margin-estimate"
+    },
+    "gcc_dubai": {
+      "name": "GCC Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "GC",
+      "url": "https://www.gccexchange.com/uae-currency-exchange-rates",
+      "AED": 25.87,
+      "source": "margin-estimate"
+    },
+    "gcc_sharjah": {
+      "name": "GCC Exchange",
+      "city": "Sharjah",
+      "country": "UAE",
+      "logo": "GC",
+      "url": "https://www.gccexchange.com/uae-currency-exchange-rates",
+      "AED": 25.87,
+      "source": "margin-estimate"
+    },
+    "federal_dubai": {
+      "name": "Federal Exchange",
+      "city": "Dubai",
+      "country": "UAE",
+      "logo": "FE",
+      "url": "https://federalexchange.ae/",
+      "AED": 25.93,
+      "source": "margin-estimate"
+    },
+    "federal_sharjah": {
+      "name": "Federal Exchange",
+      "city": "Sharjah",
+      "country": "UAE",
+      "logo": "FE",
+      "url": "https://federalexchange.ae/",
+      "AED": 25.93,
+      "source": "margin-estimate"
+    },
+    "al_fardan_ad": {
+      "name": "Al Fardan Exchange",
+      "city": "Abu Dhabi",
+      "country": "UAE",
+      "logo": "AF",
+      "url": "https://alfardanexchange.com/todays-exchange-rates",
+      "AED": 25.95,
+      "source": "margin-estimate"
+    },
+    "ahalia": {
+      "name": "Ahalia Exchange",
+      "city": "Abu Dhabi",
+      "country": "UAE",
+      "logo": "AH",
+      "url": "https://ahaliaexchange.com/",
+      "AED": 25.93,
+      "source": "margin-estimate"
+    },
+    "uae_xchange": {
+      "name": "UAE Exchange",
+      "city": "Abu Dhabi",
+      "country": "UAE",
+      "logo": "UX",
+      "url": "https://www.uaeexchange.com/",
+      "AED": 25.98,
+      "source": "margin-estimate"
+    },
+    "al_jarwan": {
+      "name": "Al Jarwan Exchange",
+      "city": "Sharjah",
+      "country": "UAE",
+      "logo": "AJ",
+      "url": "https://aljarwanexchange.com/",
+      "AED": 25.9,
+      "source": "margin-estimate"
+    },
+    "al_neel": {
+      "name": "Al Neel Exchange",
+      "city": "Sharjah",
+      "country": "UAE",
+      "logo": "AN",
+      "url": "https://alneelexchange.com/",
+      "AED": 25.87,
+      "source": "margin-estimate"
+    },
     "tahweel_riyadh": {
       "name": "Tahweel Al Rajhi",
       "city": "Riyadh",
@@ -49,7 +238,7 @@
       "source": "margin-estimate"
     },
     "westernsa_riyadh": {
-      "name": "Western Union KSA",
+      "name": "Western Union",
       "city": "Riyadh",
       "country": "Saudi Arabia",
       "logo": "WU",
@@ -58,7 +247,7 @@
       "source": "margin-estimate"
     },
     "westernsa_jeddah": {
-      "name": "Western Union KSA",
+      "name": "Western Union",
       "city": "Jeddah",
       "country": "Saudi Arabia",
       "logo": "WU",
