@@ -522,7 +522,7 @@ input,select{font-family:var(--font)}
       <span class="sb-icon">📍</span>
       <div class="sb-content">
         <span class="sb-label" data-i18n="sb_location">Your Location</span>
-        <select class="sb-select" id="sbLocation" onchange="runSearch()">
+        <select class="sb-select" id="sbLocation" onchange="onLocationChange()">
           <option value="all">All Locations</option>
           <optgroup label="🇦🇪 UAE">
             <option value="Dubai">Dubai</option>
@@ -800,6 +800,9 @@ function runSearch() {
   document.getElementById('midCurr').textContent = activeCurr;
   document.getElementById('midRateDisplay').textContent = (MID[activeCurr] || 0).toFixed(2);
 
+  // Always read location from the dropdown — this is the fix
+  activeLoc = document.getElementById('sbLocation').value;
+
   const providers = getPublishedProviders();
   const withRate  = providers.filter(p => p.rates[activeCurr] > 0);
 
@@ -922,6 +925,16 @@ function quickLoc(btn, loc) {
   btn.classList.add('active');
   activeLoc = loc;
   document.getElementById('sbLocation').value = loc;
+  runSearch();
+}
+
+function onLocationChange() {
+  const loc = document.getElementById('sbLocation').value;
+  activeLoc = loc;
+  document.querySelectorAll('.loc-pill').forEach(b => {
+    b.classList.remove('active');
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + loc + "'")) b.classList.add('active');
+  });
   runSearch();
 }
 
