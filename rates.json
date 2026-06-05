@@ -1,133 +1,25 @@
 {
-  "scrapedAt": "2026-06-05T00:57:05.619Z",
+  "scrapedAt": "2026-06-05T03:13:13.896Z",
   "midRates": {
     "AED": 26.1097,
     "SAR": 25.5754,
+    "KWD": 310.559,
+    "QAR": 26.3158,
+    "OMR": 249.3766,
+    "BHD": 255.102,
     "USD": 96.1538,
     "GBP": 128.7001,
-    "EUR": 111.3586,
-    "QAR": 26.3158,
-    "KWD": 310.559,
-    "BHD": 255.102,
-    "OMR": 249.3766
+    "EUR": 111.3586
   },
   "providers": {
-    "al_ansari_dubai": {
-      "name": "Al Ansari Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "AA",
-      "url": "https://alansariexchange.com/service/foreign-exchange/",
-      "AED": 26.03,
-      "source": "margin-estimate"
-    },
-    "al_ansari_abudhabi": {
-      "name": "Al Ansari Exchange",
-      "city": "Abu Dhabi",
-      "country": "UAE",
-      "logo": "AA",
-      "url": "https://alansariexchange.com/service/foreign-exchange/",
-      "AED": 26.03,
-      "source": "margin-estimate"
-    },
-    "al_ansari_sharjah": {
-      "name": "Al Ansari Exchange",
-      "city": "Sharjah",
-      "country": "UAE",
-      "logo": "AA",
-      "url": "https://alansariexchange.com/service/foreign-exchange/",
-      "AED": 26.03,
-      "source": "margin-estimate"
-    },
-    "lulu_dubai": {
-      "name": "LuLu Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "LE",
-      "url": "https://luluexchange.com/currency-converter/",
-      "AED": 26.06,
-      "source": "margin-estimate"
-    },
-    "lulu_abudhabi": {
-      "name": "LuLu Exchange",
-      "city": "Abu Dhabi",
-      "country": "UAE",
-      "logo": "LE",
-      "url": "https://luluexchange.com/currency-converter/",
-      "AED": 26.06,
-      "source": "margin-estimate"
-    },
-    "lulu_sharjah": {
-      "name": "LuLu Exchange",
-      "city": "Sharjah",
-      "country": "UAE",
-      "logo": "LE",
-      "url": "https://luluexchange.com/currency-converter/",
-      "AED": 26.06,
-      "source": "margin-estimate"
-    },
-    "al_fardan_dubai": {
-      "name": "Al Fardan Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "AF",
-      "url": "https://alfardanexchange.com/todays-exchange-rates",
-      "AED": 25.95,
-      "source": "margin-estimate"
-    },
-    "al_fardan_abudhabi": {
-      "name": "Al Fardan Exchange",
-      "city": "Abu Dhabi",
-      "country": "UAE",
-      "logo": "AF",
-      "url": "https://alfardanexchange.com/todays-exchange-rates",
-      "AED": 25.95,
-      "source": "margin-estimate"
-    },
-    "wallstreet": {
-      "name": "Wall Street Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "WS",
-      "url": "https://www.wallstreet.ae/personal/foreign-exchange",
-      "AED": 25.9,
-      "source": "margin-estimate"
-    },
-    "orient": {
-      "name": "Orient Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "OE",
-      "url": "https://orientexchange.ae/",
-      "AED": 25.98,
-      "source": "margin-estimate"
-    },
-    "unimoni": {
-      "name": "Unimoni Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "UN",
-      "url": "https://unimoni.ae/",
-      "AED": 25.85,
-      "source": "margin-estimate"
-    },
-    "joyalukkas": {
-      "name": "Joyalukkas Exchange",
-      "city": "Dubai",
-      "country": "UAE",
-      "logo": "JE",
-      "url": "https://joyalukkasexchange.com/",
-      "AED": 26.06,
-      "source": "margin-estimate"
-    },
     "gcc_dubai": {
       "name": "GCC Exchange",
       "city": "Dubai",
       "country": "UAE",
       "logo": "GC",
       "url": "https://www.gccexchange.com/uae-currency-exchange-rates",
-      "AED": 25.87,
-      "source": "margin-estimate"
+      "AED": 26.0301,
+      "source": "scraped"
     },
     "gcc_sharjah": {
       "name": "GCC Exchange",
@@ -135,161 +27,35 @@
       "country": "UAE",
       "logo": "GC",
       "url": "https://www.gccexchange.com/uae-currency-exchange-rates",
-      "AED": 25.87,
-      "source": "margin-estimate"
+      "AED": 26.0301,
+      "source": "scraped"
     },
-    "federal_dubai": {
-      "name": "Federal Exchange",
+    "joyalukkas": {
+      "name": "Joyalukkas Exchange",
       "city": "Dubai",
       "country": "UAE",
-      "logo": "FE",
-      "url": "https://federalexchange.ae/",
-      "AED": 25.93,
-      "source": "margin-estimate"
+      "logo": "JE",
+      "url": "https://joyalukkasexchange.com/",
+      "AED": 25.94,
+      "source": "scraped"
     },
-    "federal_sharjah": {
-      "name": "Federal Exchange",
-      "city": "Sharjah",
+    "orient": {
+      "name": "Orient Exchange",
+      "city": "Dubai",
       "country": "UAE",
-      "logo": "FE",
-      "url": "https://federalexchange.ae/",
-      "AED": 25.93,
-      "source": "margin-estimate"
+      "logo": "OE",
+      "url": "https://www.orientexchange.com/",
+      "AED": 25.9403,
+      "source": "scraped"
     },
-    "al_fardan_ad": {
-      "name": "Al Fardan Exchange",
-      "city": "Abu Dhabi",
+    "wallstreet": {
+      "name": "Wall Street Exchange",
+      "city": "Dubai",
       "country": "UAE",
-      "logo": "AF",
-      "url": "https://alfardanexchange.com/todays-exchange-rates",
-      "AED": 25.95,
-      "source": "margin-estimate"
-    },
-    "ahalia": {
-      "name": "Ahalia Exchange",
-      "city": "Abu Dhabi",
-      "country": "UAE",
-      "logo": "AH",
-      "url": "https://ahaliaexchange.com/",
-      "AED": 25.93,
-      "source": "margin-estimate"
-    },
-    "uae_xchange": {
-      "name": "UAE Exchange",
-      "city": "Abu Dhabi",
-      "country": "UAE",
-      "logo": "UX",
-      "url": "https://www.uaeexchange.com/",
-      "AED": 25.98,
-      "source": "margin-estimate"
-    },
-    "al_jarwan": {
-      "name": "Al Jarwan Exchange",
-      "city": "Sharjah",
-      "country": "UAE",
-      "logo": "AJ",
-      "url": "https://aljarwanexchange.com/",
-      "AED": 25.9,
-      "source": "margin-estimate"
-    },
-    "al_neel": {
-      "name": "Al Neel Exchange",
-      "city": "Sharjah",
-      "country": "UAE",
-      "logo": "AN",
-      "url": "https://alneelexchange.com/",
-      "AED": 25.87,
-      "source": "margin-estimate"
-    },
-    "tahweel_riyadh": {
-      "name": "Tahweel Al Rajhi",
-      "city": "Riyadh",
-      "country": "Saudi Arabia",
-      "logo": "TR",
-      "url": "https://www.tahweelalrajhi.com.sa/",
-      "SAR": 25.35,
-      "source": "margin-estimate"
-    },
-    "tahweel_jeddah": {
-      "name": "Tahweel Al Rajhi",
-      "city": "Jeddah",
-      "country": "Saudi Arabia",
-      "logo": "TR",
-      "url": "https://www.tahweelalrajhi.com.sa/",
-      "SAR": 25.35,
-      "source": "margin-estimate"
-    },
-    "enjaz_riyadh": {
-      "name": "Enjaz Exchange",
-      "city": "Riyadh",
-      "country": "Saudi Arabia",
-      "logo": "EN",
-      "url": "https://www.enjazit.com.sa/",
-      "SAR": 25.5,
-      "source": "margin-estimate"
-    },
-    "enjaz_jeddah": {
-      "name": "Enjaz Exchange",
-      "city": "Jeddah",
-      "country": "Saudi Arabia",
-      "logo": "EN",
-      "url": "https://www.enjazit.com.sa/",
-      "SAR": 25.5,
-      "source": "margin-estimate"
-    },
-    "westernsa_riyadh": {
-      "name": "Western Union",
-      "city": "Riyadh",
-      "country": "Saudi Arabia",
-      "logo": "WU",
-      "url": "https://www.westernunion.com/sa/",
-      "SAR": 25.4,
-      "source": "margin-estimate"
-    },
-    "westernsa_jeddah": {
-      "name": "Western Union",
-      "city": "Jeddah",
-      "country": "Saudi Arabia",
-      "logo": "WU",
-      "url": "https://www.westernunion.com/sa/",
-      "SAR": 25.4,
-      "source": "margin-estimate"
-    },
-    "stcpay_riyadh": {
-      "name": "STC Pay",
-      "city": "Riyadh",
-      "country": "Saudi Arabia",
-      "logo": "ST",
-      "url": "https://stcpay.com.sa/",
-      "SAR": 25.42,
-      "source": "margin-estimate"
-    },
-    "stcpay_jeddah": {
-      "name": "STC Pay",
-      "city": "Jeddah",
-      "country": "Saudi Arabia",
-      "logo": "ST",
-      "url": "https://stcpay.com.sa/",
-      "SAR": 25.42,
-      "source": "margin-estimate"
-    },
-    "alinma_riyadh": {
-      "name": "Alinma Pay",
-      "city": "Riyadh",
-      "country": "Saudi Arabia",
-      "logo": "AL",
-      "url": "https://www.alinma.com/",
-      "SAR": 25.42,
-      "source": "margin-estimate"
-    },
-    "alinma_jeddah": {
-      "name": "Alinma Pay",
-      "city": "Jeddah",
-      "country": "Saudi Arabia",
-      "logo": "AL",
-      "url": "https://www.alinma.com/",
-      "SAR": 25.42,
-      "source": "margin-estimate"
+      "logo": "WS",
+      "url": "https://www.wallstreet.ae/personal/foreign-exchange",
+      "AED": 25.974,
+      "source": "scraped"
     },
     "almulla": {
       "name": "Al Mulla Exchange",
@@ -297,8 +63,8 @@
       "country": "Kuwait",
       "logo": "AM",
       "url": "https://www.almullaexchange.com/",
-      "KWD": 306.52,
-      "source": "margin-estimate"
+      "KWD": 309.241,
+      "source": "scraped"
     },
     "bec_kw": {
       "name": "BEC Exchange",
@@ -306,35 +72,8 @@
       "country": "Kuwait",
       "logo": "BE",
       "url": "https://www.bec.com.kw/",
-      "KWD": 305.9,
-      "source": "margin-estimate"
-    },
-    "muzaini": {
-      "name": "Al Muzaini Exchange",
-      "city": "Kuwait City",
-      "country": "Kuwait",
-      "logo": "MZ",
-      "url": "https://www.muzaini.com/",
-      "KWD": 305.28,
-      "source": "margin-estimate"
-    },
-    "lulu_kw": {
-      "name": "LuLu Exchange",
-      "city": "Kuwait City",
-      "country": "Kuwait",
-      "logo": "LE",
-      "url": "https://luluexchange.com/",
-      "KWD": 304.97,
-      "source": "margin-estimate"
-    },
-    "kieco": {
-      "name": "KIECO Exchange",
-      "city": "Kuwait City",
-      "country": "Kuwait",
-      "logo": "KI",
-      "url": "https://www.kiecoexchange.com/",
-      "KWD": 304.35,
-      "source": "margin-estimate"
+      "KWD": 308.8641,
+      "source": "scraped"
     }
   }
 }
