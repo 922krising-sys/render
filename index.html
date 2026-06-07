@@ -1046,5 +1046,93 @@ detectLocale();
 runSearch();
 setInterval(runSearch, 30000);
 </script>
+
+<!-- FOOTER -->
+<footer style="background:#0a0f1e;border-top:1px solid #1e293b;margin-top:60px;padding:48px 24px 32px">
+  <div style="max-width:1100px;margin:0 auto">
+
+    <!-- Top row -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;margin-bottom:40px">
+
+      <div>
+        <div style="font-size:1.2rem;font-weight:800;margin-bottom:12px"><span style="color:#fff">Cashx</span><span style="color:#f59e0b">.biz</span></div>
+        <p style="color:#64748b;font-size:0.85rem;line-height:1.6">A free rate-comparison tool for Indian workers in the Gulf. We do not handle, hold, or transfer money. We are not a financial institution.</p>
+      </div>
+
+      <div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Legal</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+          <li><a href="#disclaimer" onclick="document.getElementById('legal-modal').style.display='flex'" style="color:#64748b;font-size:0.85rem;text-decoration:none">Disclaimer</a></li>
+          <li><a href="#tos" onclick="document.getElementById('legal-modal').style.display='flex'" style="color:#64748b;font-size:0.85rem;text-decoration:none">Terms of Use</a></li>
+          <li><a href="#privacy" onclick="document.getElementById('privacy-modal').style.display='flex'" style="color:#64748b;font-size:0.85rem;text-decoration:none">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">For Businesses</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px">
+          <li><a href="business.html" style="color:#64748b;font-size:0.85rem;text-decoration:none">List Your Rates →</a></li>
+          <li><span style="color:#64748b;font-size:0.85rem">contact@cashx.biz</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Disclaimer bar -->
+    <div style="background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:16px 20px;margin-bottom:24px">
+      <p style="color:#475569;font-size:0.78rem;line-height:1.7;margin:0">
+        <strong style="color:#64748b">Rate Disclaimer:</strong> All exchange rates displayed on Cashx.biz are for informational purposes only and are sourced from third-party exchange houses or public APIs. Rates are indicative, may be delayed, and are subject to change without notice. Cashx.biz does not guarantee the accuracy, completeness, or timeliness of any rate information. Always confirm the final rate directly with the exchange house before completing any transaction. Mid-market rates are provided by ExchangeRate-API and do not include spreads or fees charged by any exchange house.
+      </p>
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:20px;border-top:1px solid #1e293b">
+      <p style="color:#334155;font-size:0.78rem;margin:0">© 2026 Cashx.biz — All rights reserved. Not a licensed financial service provider.</p>
+      <p style="color:#334155;font-size:0.78rem;margin:0">Rates updated daily. Not financial advice.</p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- LEGAL MODAL (Disclaimer + ToS) -->
+<div id="legal-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:16px;max-width:640px;width:100%;max-height:80vh;overflow-y:auto;padding:36px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <h2 style="font-size:1.3rem;font-weight:700;margin:0">Disclaimer & Terms of Use</h2>
+      <button onclick="document.getElementById('legal-modal').style.display='none'" style="background:none;border:none;color:#64748b;font-size:1.5rem;cursor:pointer">✕</button>
+    </div>
+    <div style="color:#94a3b8;font-size:0.85rem;line-height:1.8">
+      <p><strong style="color:#fff">1. Information Only</strong><br>Cashx.biz is a free rate-comparison website. We do not provide financial advice, currency exchange services, money transfers, or investment recommendations. Nothing on this website should be construed as financial, legal, or regulatory advice.</p>
+      <p><strong style="color:#fff">2. No Guarantee of Accuracy</strong><br>Exchange rates displayed are sourced from third-party providers and automated scrapers. We make no warranty, express or implied, that any rate shown is accurate, current, or available at the time of your transaction. Rates change continuously and may differ from what any exchange house actually offers at the counter.</p>
+      <p><strong style="color:#fff">3. No Liability</strong><br>Cashx.biz, its owners, operators, and contributors shall not be liable for any financial loss, missed opportunity, or damages of any kind arising from your use of or reliance on information displayed on this website. You use this website entirely at your own risk.</p>
+      <p><strong style="color:#fff">4. Third-Party Links</strong><br>This website links to third-party exchange house websites. We are not responsible for the content, accuracy, or availability of those websites. Visiting them is subject to their own terms and conditions.</p>
+      <p><strong style="color:#fff">5. Not a Regulated Entity</strong><br>Cashx.biz is not a bank, money service business, or regulated financial institution. We are not licensed by the UAE Central Bank, Saudi Arabian Monetary Authority (SAMA), Central Bank of Kuwait, or any other regulatory body.</p>
+      <p><strong style="color:#fff">6. Acceptance</strong><br>By using this website you agree to these terms. If you do not agree, please stop using the website.</p>
+      <p><strong style="color:#fff">7. Changes</strong><br>We reserve the right to update these terms at any time without prior notice. Continued use of the website constitutes acceptance of any revised terms.</p>
+      <p style="color:#475569;font-size:0.8rem">Last updated: June 2026</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div id="privacy-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:16px;max-width:640px;width:100%;max-height:80vh;overflow-y:auto;padding:36px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <h2 style="font-size:1.3rem;font-weight:700;margin:0">Privacy Policy</h2>
+      <button onclick="document.getElementById('privacy-modal').style.display='none'" style="background:none;border:none;color:#64748b;font-size:1.5rem;cursor:pointer">✕</button>
+    </div>
+    <div style="color:#94a3b8;font-size:0.85rem;line-height:1.8">
+      <p><strong style="color:#fff">1. What We Collect</strong><br>Cashx.biz does not require you to create an account or provide personal information to use the comparison tool. We do not collect your name, email address, phone number, or financial details.</p>
+      <p><strong style="color:#fff">2. Automatic Data</strong><br>Like all websites, our hosting provider (GitHub Pages) may automatically log standard server data including your IP address, browser type, referring URL, and pages visited. This data is used solely for security and operational purposes and is not sold or shared.</p>
+      <p><strong style="color:#fff">3. Cookies</strong><br>We use minimal browser storage (localStorage) to remember your currency and location preferences between visits. No tracking cookies or advertising cookies are used.</p>
+      <p><strong style="color:#fff">4. Third Parties</strong><br>We use ExchangeRate-API to fetch mid-market rates. Their privacy policy applies to data sent to their servers. We do not use Google Analytics, Facebook Pixel, or any advertising networks.</p>
+      <p><strong style="color:#fff">5. Business Portal</strong><br>Exchange houses who register on our business portal provide their business name, contact email, and rate information. This data is used solely to display their rates on the comparison tool and is never sold to third parties.</p>
+      <p><strong style="color:#fff">6. Your Rights</strong><br>If you have submitted data via the business portal and wish to have it removed, contact us at contact@cashx.biz and we will remove it within 7 days.</p>
+      <p><strong style="color:#fff">7. Contact</strong><br>For any privacy questions: contact@cashx.biz</p>
+      <p style="color:#475569;font-size:0.8rem">Last updated: June 2026</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
